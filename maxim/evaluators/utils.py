@@ -13,7 +13,9 @@ def sanitize_pass_fail_criteria(name: str, pass_fail_criteria: PassFailCriteria)
     all_operators = [">=", "<=", "<", ">", "=", "!="]
     boolean_operators = ["=", "!="]
 
-    if isinstance(pass_fail_criteria.on_each_entry.value, (int, float)):
+    if isinstance(pass_fail_criteria.on_each_entry.value, (int, float)) and not isinstance(
+        pass_fail_criteria.on_each_entry.value, bool
+    ):
         if pass_fail_criteria.on_each_entry.score_should_be not in all_operators:
             raise Exception(
                 f"Error While Creating Evaluator {name}: Invalid operator for scoreShouldBe, only accepts {', '.join(all_operators)}"
